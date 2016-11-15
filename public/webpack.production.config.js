@@ -3,7 +3,7 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: [ path.join(__dirname, 'support/index.js') ],
+  entry: [ path.join(__dirname, 'index.js') ],
   output: {
     path: path.resolve('./static/dist'),
     filename: '[name]-[hash].min.js',
@@ -33,7 +33,7 @@ module.exports = {
       debug: false
     }),
     new HtmlWebpackPlugin({
-      template: 'support/index.html',
+      template: './index.html',
       inject: 'body',
       filename: 'index.html'
     }),

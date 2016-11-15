@@ -7,7 +7,7 @@ var port = process.env.PORT || 3000;
 var config = {
   entry: [
     'webpack-hot-middleware/client?reload=true',
-    path.join(__dirname, 'support/index.js'),
+    path.join(__dirname, 'index.js'),
   ],
   devtool: 'cheap-module-eval-source-map',
   output: {
@@ -45,7 +45,7 @@ var config = {
       fallbackModuleFilenameTemplate: '[absolute-resource-path]'
     }),
     new HtmlWebpackPlugin({
-      template: 'support/index.html',
+      template: './index.html',
       inject: 'body',
       filename: 'index.html'
     }),
@@ -79,7 +79,7 @@ if (require.main === module) {
   app
     .use(express.static('./static'))
     .use(require('connect-history-api-fallback')())
-    .use(require("webpack-dev-middleware")(compiler, {
+    .use(require('webpack-dev-middleware')(compiler, {
       publicPath: config.output.publicPath,
       stats: {
         hash: false,
@@ -95,7 +95,7 @@ if (require.main === module) {
         chunkModules: false,
       },
     }))
-    .use(require("webpack-hot-middleware")(compiler))
+    .use(require('webpack-hot-middleware')(compiler))
     .listen(port);
 } else {
   module.exports = config;
