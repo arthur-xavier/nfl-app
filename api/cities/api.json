@@ -1,0 +1,8 @@
+{
+    "name": "cities",
+    "routes": {
+        "GET /cities": "all",
+        "GET /cities/:id": "get",
+        "GET /cities/:id/teams": "getTeams"
+    }
+}

@@ -1,0 +1,7 @@
+{
+    "name": "stadiums",
+    "routes": {
+        "GET /stadiums": "all",
+        "GET /stadiums/:id": "get"
+    }
+}

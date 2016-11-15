@@ -1,0 +1,7 @@
+node_modules/*
+dist/*
+www/assets/*
+www/bundle*.*
+www/vendor.*
+
+test/*

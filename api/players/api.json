@@ -1,0 +1,19 @@
+{
+    "name": "players",
+    "routes": {
+        "GET /players": "all",
+        "GET /players/:id": "get",
+
+        "GET /players/:id/stats": "getStats",
+        "GET /players/:id/stats/:gameid": "getStatsForGame",
+
+        "GET /players/:id/stats/offensive": "getOffensiveStats",
+        "GET /players/:id/stats/offensive/:gameid": "getOffensiveStatsForGame",
+
+        "GET /players/:id/stats/defensive": "getDefensiveStats",
+        "GET /players/:id/stats/defensive/:gameid": "getDefensiveStatsForGame",
+
+        "GET /players/:id/stats/special": "getSpecialStats",
+        "GET /players/:id/stats/special/:gameid": "getSpecialStatsForGame"
+    }
+}
