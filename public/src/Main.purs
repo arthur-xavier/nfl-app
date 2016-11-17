@@ -1,7 +1,7 @@
 module Main where
 
-import App.Routes (match)
-import App.Layout (Action(PageView), State, view, update)
+import NFL.Routes (match)
+import NFL.Layout (Action(PageView), State, view, update)
 import Control.Bind ((=<<))
 import Control.Monad.Eff (Eff)
 import DOM (DOM)
