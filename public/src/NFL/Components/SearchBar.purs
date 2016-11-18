@@ -34,6 +34,7 @@ view color =
       [ A.className "searchBar"
       , E.onKey "enter" (\e -> Search e.target.value)
       , A.placeholder "Search..."
+      , A.size 30
       , A.style
         [ Tuple "background" "none"
         , Tuple "color" color

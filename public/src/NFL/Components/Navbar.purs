@@ -7,6 +7,7 @@ import Pux.Html as H
 import Pux.Html.Attributes as A
 import Data.Tuple (Tuple(..))
 import Pux.Html (Html, Attribute)
+import Pux.Router (link)
 
 navbar :: forall a. Array (Html a) -> Html a
 navbar children =
@@ -29,14 +30,16 @@ container children =
 
 logo :: forall a. String -> Html a
 logo src =
-  H.img
-    [ A.src src
-    , A.style
-      [ Tuple "marginTop" "-72px"
-      , Tuple "marginRight" "24px"
+  link "/" []
+    [ H.img
+      [ A.src src
+      , A.style
+        [ Tuple "marginTop" "-72px"
+        , Tuple "marginRight" "24px"
+        ]
       ]
+      []
     ]
-    []
 
 flex :: forall a. Attribute a
 flex = A.className "flex"

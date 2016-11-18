@@ -8,6 +8,7 @@ body {
   font-weight: 400;
   line-height: 1.3em;
   letter-spacing: -0.1px;
+  color: #0F0508;
 
   text-rendering: optimizeLegibility;
   text-size-adjust: 100;
@@ -32,10 +33,36 @@ h1 {
   font-family: 'Bitter';
   font-size: 2.8rem;
 }
+h2 {
+  font-family: 'Bitter';
+  font-weight: 400;
+  font-size: 2.4rem;
+  color: #44555F;
+}
 h3 {
   font-family: 'Oswald';
   font-weight: 400;
   font-size: 2.2rem;
+}
+h4 {
+  font-family: 'Oswald';
+  font-weight: 400;
+  font-size: 1.8rem;
+  color: #44555F;
+}
+
+small {
+  color: #959CA1;
+}
+
+a {
+  font-weight: 600;
+  color: #0068B3;
+  text-decoration: none;
+}
+a:hover {
+  color: #007DC2;
+  text-decoration: underline;
 }
 
 /**
@@ -92,9 +119,20 @@ h3 {
 /* CARD */
 .card {
   position: relative;
+  background: #FFFFFF;
   border-radius: 2px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.17);
   overflow: hidden;
+}
+.card-content {
+  padding: 1.2rem;
+}
+
+.card-content h4 {
+  margin: 0;
+}
+.card-content p {
+  margin: 0.6rem 0 0;
 }
 
 .card-title {

@@ -12,6 +12,10 @@ newtype Team = Team
   , city :: String
   }
 
+instance showTeam :: Show Team where
+  show (Team {id, name, owner, year, city}) =
+    "(Team " <> show id <> " " <> name <> " from " <> city <> ")"
+
 instance teamIsForeign :: IsForeign Team where
   read value = do
     id <- readProp "id" value

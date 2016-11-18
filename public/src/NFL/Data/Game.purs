@@ -2,7 +2,7 @@ module NFL.Data.Game where
 
 import Prelude
 import Data.Foreign.Class (class IsForeign, readProp)
-import Data.Foreign.Index (prop)
+import NFL.Data.Stadium (Stadium)
 import NFL.Data.Team (Team)
 
 type GameSide =
@@ -21,7 +21,13 @@ newtype Game = Game
   , away :: GameSide
   }
 
-instance playerIsForeign :: IsForeign Game where
+instance showGame :: Show Game where
+  show (Game {id, season, type_, date, stadium, home, away}) =
+    "(Game " <> show id <> " s" <> season <> " " <> type_ <> " " <> date <>
+    " " <> show stadium <> " {" <> show home.team <> ":" <> show away.team <>
+    "} " <> show home.score <> ":" <> show away.score <> ")"
+
+instance gameIsForeign :: IsForeign Game where
   read value = do
     id <- readProp "id" value
     season <- readProp "season" value
@@ -43,18 +49,3 @@ instance playerIsForeign :: IsForeign Game where
       , home: { team: homeTeam, score: homeScore }
       , away: { team: awayTeam, score: awayScore }
       }
-
-newtype Stadium = Stadium
-  { id :: Int
-  , name :: String
-  , capacity :: Int
-  , city :: String
-  }
-
-instance stadiumIsForeign :: IsForeign Stadium where
-  read value = do
-    id <- readProp "id" value
-    name <- readProp "name" value
-    capacity <- readProp "capacity" value
-    city <- prop "city" value >>= readProp "name"
-    pure $ Stadium { id, name, capacity, city }
