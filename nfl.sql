@@ -158,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `nfldb`.`player_team` (
   `plt_jerseynum` INT NOT NULL COMMENT 'Numero da camisa',
   `plt_contractstartdate` VARCHAR(4) NOT NULL COMMENT 'Data de inicio do contrato',
   `plt_contractenddate` VARCHAR(4) NOT NULL COMMENT 'Data de termino do contrato',
-  `plt_contractvalue` DECIMAL(10,2) NOT NULL COMMENT 'Valor total do contrato',
+  `plt_contractvalue` DECIMAL(11,2) NOT NULL COMMENT 'Valor total do contrato',
   `plt_active` TINYINT(1) NOT NULL COMMENT 'Indica se é a relacao valida para o jogador.',
   PRIMARY KEY (`plt_id`),
   INDEX `fk_player_idx` (`plt_plaid` ASC),
