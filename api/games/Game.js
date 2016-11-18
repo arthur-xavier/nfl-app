@@ -1,5 +1,4 @@
 const Model = require('lib/model');
-const Stadium = require('api/stadiums/Stadium');
 
 const Game = new Model({
     id: 'gam_id',
@@ -9,9 +8,16 @@ const Game = new Model({
     awayScore: 'gam_awayscore',
     attendance: 'gam_attendance',
     date: 'gam_date',
-    stadium: Stadium,
+    stadium: {
+        name: 'std_name',
+        capacity: 'std_capacity',
+        city: 'cit_name',
+    }
 });
 
-Game.joins = 'INNER JOIN stadium ON gam_stdid=std_id';
+Game.joins = `
+    INNER JOIN stadium ON gam_stdid=std_id
+    INNER JOIN city ON std_citid=cit_id
+    `;
 
 module.exports = Game;

@@ -1,10 +1,8 @@
 const Player = require('./Player');
-const City = require('api/cities/City');
-const University = require('api/universities/University');
 
 exports.all = function*() {
     let players = yield this.database.query(`
-        SELECT ${Player}, ${City.foreign}, ${University.foreign}
+        SELECT ${Player}
         FROM player
         ${Player.joins}
         `);
@@ -13,7 +11,7 @@ exports.all = function*() {
 
 exports.get = function*(id) {
     let [player] = yield this.database.query(`
-        SELECT ${Player}, ${City.foreign}, ${University.foreign}
+        SELECT ${Player}
         FROM player
         ${Player.joins}
         WHERE cit_id='${id}'

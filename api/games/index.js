@@ -1,23 +1,22 @@
 const Game = require('./Game');
-const Stadium = require('api/stadiums/Stadium');
 
 exports.all = function*() {
-    let players = yield this.database.query(`
-        SELECT ${Game}, ${Stadium.foreign}
+    let games = yield this.database.query(`
+        SELECT ${Game}
         FROM game
         ${Game.joins}
         `);
-    this.body = players.map(Game);
+    this.body = games.map(Game);
 };
 
 exports.get = function*(id) {
-    let [player] = yield this.database.query(`
-        SELECT ${Game}, ${Stadium.foreign}
+    let [game] = yield this.database.query(`
+        SELECT ${Game}
         FROM game
         ${Game.joins}
         WHERE gam_id='${id}'
         `);
-    this.body = Game(player);
+    this.body = Game(game);
 };
 
 exports.getStats = function*() {

@@ -2,6 +2,7 @@ process.env.NODE_PATH = __dirname;
 require('module').Module._initPaths();
 
 const Koa = require('koa');
+const Cors = require('kcors');
 const Database = require('lib/database');
 const Logger = require('koa-logger');
 const Static = require('koa-static');
@@ -13,6 +14,7 @@ let app = Koa();
 
 app.use(Logger());
 app.use(Static(path.join(__dirname, '/public/dist')));
+app.use(Cors());
 app.use(Database({
     driver: 'mysql',
     user: 'root',
@@ -23,5 +25,5 @@ app.use(Database({
 
 load(app, './api');
 
-app.listen(3000);
+app.listen(8080);
 console.info('Listening...'); // eslint-disable-line no-console

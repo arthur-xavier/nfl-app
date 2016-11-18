@@ -1,7 +1,0 @@
-{
-    "name": "universities",
-    "routes": {
-        "GET /universities": "all",
-        "GET /universities/:id": "get"
-    }
-}

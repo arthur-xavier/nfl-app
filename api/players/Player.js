@@ -1,6 +1,4 @@
 const Model = require('lib/model');
-const City = require('api/cities/City');
-const University = require('api/universities/University');
 
 const Player = new Model({
     id: 'pla_id',
@@ -9,10 +7,19 @@ const Player = new Model({
     position: 'pla_position',
     height: 'pla_height',
     weight: 'pla_weight',
-    city: City,
-    university: University,
+    team: {
+        id: 'tea_id',
+        name: 'tea_name',
+    },
+    city: 'cit_name',
+    university: 'uni_name',
 });
 
-Player.joins = 'INNER JOIN city ON pla_citid=cit_id INNER JOIN university ON pla_uniid=uni_id';
+Player.joins = `
+    INNER JOIN city ON pla_citid=cit_id
+    INNER JOIN university ON pla_uniid=uni_id
+    INNER JOIN player_team ON plt_plaid=pla_id
+    INNER JOIN team ON tea_id=plt_teaid
+    `;
 
 module.exports = Player;
