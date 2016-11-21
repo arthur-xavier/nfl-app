@@ -5,6 +5,7 @@ exports.all = function*() {
     let teams = yield this.database.query(`
         SELECT ${Team}
         FROM team
+        WHERE name<>'UNK'
         LIMIT ${LIMIT}
         `);
     this.body = teams.map(Team);
