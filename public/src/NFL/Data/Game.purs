@@ -2,50 +2,41 @@ module NFL.Data.Game where
 
 import Prelude
 import Data.Foreign.Class (class IsForeign, readProp)
-import NFL.Data.Stadium (Stadium)
+import Data.Foreign.Index (prop)
+import Data.Foreign.NullOrUndefined (unNullOrUndefined)
+import Data.Maybe (fromMaybe)
 import NFL.Data.Team (Team)
 
-type GameSide =
-  { team :: Team
-  , score :: Int
-  }
-
 newtype Game = Game
-  { id :: Int
-  , season :: String
-  , type_ :: String
-  , attendance :: Int
-  , date :: String
-  , stadium :: Stadium
-  , home :: GameSide
-  , away :: GameSide
+  { id :: String
+  , season :: { year :: Int, type_ :: String }
+  , startTime :: String
+  , home :: { team :: Team, score :: Int }
+  , away :: { team :: Team, score :: Int }
   }
 
 instance showGame :: Show Game where
-  show (Game {id, season, type_, date, stadium, home, away}) =
-    "(Game " <> show id <> " s" <> season <> " " <> type_ <> " " <> date <>
-    " " <> show stadium <> " {" <> show home.team <> ":" <> show away.team <>
-    "} " <> show home.score <> ":" <> show away.score <> ")"
+  show (Game {id, season, startTime, home, away}) =
+    "(Game " <> show id <> " s" <> show season.year <> " " <> startTime <>
+    " {" <> show home.team <> show home.score <>
+    ":" <> show away.score <> " " <> show away.team <> "})"
 
 instance gameIsForeign :: IsForeign Game where
   read value = do
     id <- readProp "id" value
-    season <- readProp "season" value
-    type_ <- readProp "type" value
-    attendance <- readProp "attendance" value
-    date <- readProp "date" value
-    homeTeam <- readProp "hometeam" value
-    homeScore <- readProp "homescore" value
-    awayTeam <- readProp "awayteam" value
-    awayScore <- readProp "awayscore" value
-    stadium <- readProp "stadium" value
+    year <- prop "season" value >>= readProp "year"
+    type_ <- prop "season" value >>= readProp "type"
+    startTime <- readProp "startTime" value
+    homeTeam <- prop "home" value >>= readProp "team"
+    homeScore <- zeroIfNothing <$> (prop "home" value >>= readProp "score")
+    awayTeam <- prop "away" value >>= readProp "team"
+    awayScore <- zeroIfNothing <$> (prop "away" value >>= readProp "score")
     pure $ Game
       { id
-      , season
-      , type_
-      , attendance
-      , date
-      , stadium
+      , season: { year, type_ }
+      , startTime
       , home: { team: homeTeam, score: homeScore }
       , away: { team: awayTeam, score: awayScore }
       }
+    where
+      zeroIfNothing = fromMaybe 0 <<< unNullOrUndefined

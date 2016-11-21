@@ -1,9 +1,11 @@
 module NFL.Layout where
 
 import Prelude
+import NFL.Components.Games as Games
 import NFL.Components.Home as Home
 import NFL.Components.Players as Players
 import NFL.Components.SearchBar as SearchBar
+import NFL.Components.Teams as Teams
 import NFL.Routes as Routes
 import Pux.Html as H
 import Pux.Html.Attributes as A
@@ -14,7 +16,6 @@ import Data.Foreign (F)
 import Data.Foreign.Class (class IsForeign, readJSON)
 import Data.Maybe (Maybe(..))
 import Data.Tuple (Tuple(..))
-import Debug.Trace (traceShow)
 import NFL.Components.Navbar (navbar)
 import NFL.Fetch (Fetch)
 import NFL.Routes (Route)
@@ -66,7 +67,6 @@ update fetch action state =
     fetchResource uri route = do
       { response } <- fetch uri
       let eitherM = runExcept $ readJSON response :: F a
-      traceShow eitherM \_ -> pure unit
       pure $ PageView $ either (const $ Routes.Home) (route <<< Just) eitherM
 
 view :: State -> Html Action
@@ -89,6 +89,8 @@ view state =
       [ case state.route of
           Routes.Home -> Home.view
           Routes.Players players -> Players.view players
+          Routes.Teams teams -> Teams.view teams
+          Routes.Games games -> Games.view games
           _ -> Home.view
       ]
     , H.footer

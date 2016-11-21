@@ -6,6 +6,7 @@ import Pux.Html.Attributes as A
 import Data.Maybe (Maybe(..))
 import Data.Tuple (Tuple(..))
 import NFL.Data.Player (Player(..))
+import NFL.Data.Team (Team(..))
 import Pux.Html (Html)
 import Pux.Router (link)
 
@@ -35,29 +36,26 @@ playerCard player@(Player p) =
       ]
     ]
     [ H.div [ A.className "card-content layout-row layout-align-start-center flex" ]
-      [ playerPicture player
-      , H.div
+      [ H.div
         [ A.className "layout-column flex"
-        , A.style
-          [ Tuple "marginLeft" "1.2rem"
-          ]
         ]
-        [ H.h4 [] [ H.text p.name ]
+        [ H.h4 [] [ H.text $ p.name <> " #" <> show p.number <> " " <> p.position ]
         , H.small [] [ H.text $ show feet <> "'" <> show inches <> "\", " <> show p.weight <> " lb" ]
-        , H.p [] [ H.text p.university ]
-        , H.small [] [ H.text $ "Born in " <> p.city <> " at the " <> showDate p.birthdate <> "." ]
-        , H.p [] [ H.strong [] [ H.text "Position: " ], H.span [] [ H.text p.position ] ]
-        , H.p [] [ H.strong [] [ H.text "Team: " ], link ("/teams/" <> show p.team.id) [] [ H.text p.team.name ] ]
+        , H.p [] [ H.strong [] [ H.text "Team: " ], link ("/teams/" <> team.id) [] [ H.text $ team.city <> " " <> team.name ] ]
+        , H.p [] [ H.strong [] [ H.text "College: " ], H.span [] [ H.text p.college ] ]
+        , H.small [] [ H.text $ "Born " <> showDate p.birthdate <> "." ]
         ]
       , H.div
         [ A.className "layout-column layout-align-end-end"
         , A.style [ Tuple "alignSelf" "stretch" ]
         ]
-        [ link ("/players/" <> show p.id) [] [ H.text "more..." ]
+        [ H.a [ A.href p.profile, A.target "_blank" ] [ H.text "more..." ]
         ]
       ]
     ]
   where
+    team = getTeam player
+    getTeam (Player {team: (Team t)}) = t
     feet = p.height `div` 12
     inches = p.height `mod` 12
 
@@ -71,7 +69,7 @@ playerPicture (Player {id}) =
       ]
     ]
     [ H.img
-      [ A.src ("/players/" <> show id <> ".png")
+      [ A.src ("/players/" <> id <> ".png")
       , A.style
         [ Tuple "height" "144px"
         ]
