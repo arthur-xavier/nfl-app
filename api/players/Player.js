@@ -1,25 +1,26 @@
 const Model = require('lib/model');
 
 const Player = new Model({
-    id: 'pla_id',
-    name: 'pla_name',
-    birthdate: 'pla_dob',
-    position: 'pla_position',
-    height: 'pla_height',
-    weight: 'pla_weight',
+    id: 'player_id',
+    name: 'full_name',
+    number: 'uniform_number',
+    birthdate: 'birthdate',
+    position: 'position',
+    height: 'height',
+    weight: 'weight',
     team: {
-        id: 'tea_id',
-        name: 'tea_name',
+        id: 'team',
+        name: 'team.name AS team_name',
+        city: 'team.city AS team_city',
     },
-    city: 'cit_name',
-    university: 'uni_name',
+    college: 'college',
+    profile: 'profile_url',
 });
 
+Player.key = 'player_id';
+
 Player.joins = `
-    INNER JOIN city ON pla_citid=cit_id
-    INNER JOIN university ON pla_uniid=uni_id
-    INNER JOIN player_team ON plt_plaid=pla_id
-    INNER JOIN team ON tea_id=plt_teaid
+    INNER JOIN team team ON team_id=team
     `;
 
 module.exports = Player;

@@ -1,0 +1,7 @@
+{
+    "driver": "postgres",
+    "user": "xavier",
+    "password": "",
+    "host": "localhost",
+    "database": "nfldb"
+}

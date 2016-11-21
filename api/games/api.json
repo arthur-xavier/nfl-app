@@ -2,10 +2,6 @@
     "name": "games",
     "routes": {
         "GET /games": "all",
-        "GET /games/:id": "get",
-        "GET /games/:id/stats": "getStats",
-        "GET /games/:id/stats/offensive": "getOffensiveStats",
-        "GET /games/:id/stats/defensive": "getDefensiveStats",
-        "GET /games/:id/stats/special": "getSpecialStats"
+        "GET /games/:id": "get"
     }
 }

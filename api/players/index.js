@@ -1,10 +1,13 @@
 const Player = require('./Player');
+const LIMIT = 100;
 
 exports.all = function*() {
     let players = yield this.database.query(`
         SELECT ${Player}
         FROM player
         ${Player.joins}
+        WHERE team<>'UNK' AND status<>'Unknown'
+        LIMIT ${LIMIT}
         `);
     this.body = players.map(Player);
 };
@@ -14,7 +17,7 @@ exports.get = function*(id) {
         SELECT ${Player}
         FROM player
         ${Player.joins}
-        WHERE cit_id='${id}'
+        WHERE ${Player.key}='${id}'
         `);
     this.body = Player(player);
 };

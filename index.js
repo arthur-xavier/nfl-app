@@ -15,13 +15,7 @@ let app = Koa();
 app.use(Logger());
 app.use(Static(path.join(__dirname, '/public/dist')));
 app.use(Cors());
-app.use(Database({
-    driver: 'mysql',
-    user: 'root',
-    password: 'root',
-    host: 'localhost',
-    database: 'nfldb',
-}));
+app.use(Database(require('db.json')));
 
 load(app, './api');
 
