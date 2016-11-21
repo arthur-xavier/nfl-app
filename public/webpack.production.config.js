@@ -1,13 +1,14 @@
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: [ path.join(__dirname, 'index.js') ],
   output: {
-    path: path.resolve('./static/dist'),
+    path: path.resolve('./dist'),
     filename: '[name]-[hash].min.js',
-    publicPath: '/dist/'
+    publicPath: '/'
   },
   module: {
     loaders: [
@@ -37,6 +38,7 @@ module.exports = {
       inject: 'body',
       filename: 'index.html'
     }),
+    new CopyWebpackPlugin([{ from: './static', to: './' }])
   ],
   resolveLoader: {
     modules: [

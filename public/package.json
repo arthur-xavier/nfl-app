@@ -14,7 +14,7 @@
     "clean": "rimraf static/dist && rimraf dist && rimraf output",
     "build": "npm run clean && webpack --config ./webpack.production.config.js --progress --profile --colors",
     "watch": "npm run clean && node ./webpack.config.js",
-    "serve": "http-server static --cors -p 3000",
+    "serve": "http-server dist --cors -p 3000",
     "start": "npm run watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -42,6 +42,7 @@
     "webpack": "^2.1.0-beta.25"
   },
   "devDependencies": {
+    "copy-webpack-plugin": "^4.0.1",
     "source-map-loader": "^0.1.5",
     "webpack-dev-middleware": "^1.8.3",
     "webpack-hot-middleware": "^2.12.2"
